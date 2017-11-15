@@ -1,0 +1,9 @@
+.DS_Store
+.ipynb_checkpoints/
+Dockerfile
+sito_nb/
+*.yml
+!config_template.yml
+*.pyc
+*.parquet
+*.json
