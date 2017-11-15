@@ -1,5 +1,13 @@
 # sito_mobile_workspace
 
+## Prerequisites
+
+- Git
+
+- Docker
+  - Docker for Mac: https://docs.docker.com/docker-for-mac/install/
+  - Docker for Windows: https://docs.docker.com/docker-for-windows/install/
+  - Docker for Ubuntu: https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
 
 ## Installation
 
@@ -18,6 +26,7 @@
  
 - Create a file `config.yml` using `config_template.yml` as the template, fill in AWS credentials and bucket name, and save it under `Workspace/` subdirectory.
 
+## Starting Docker Container
 - In the same directory, run docker image by executing the following command:
 
   ```
@@ -25,3 +34,23 @@
   ```
  
 - When the notebook is running, copy/paste the URL into your browser to run.
+
+## Stoping Docker Container
+
+- To stop Container, first get the CONTAINER ID by executing
+
+  ```
+  docker container ls
+  ```
+
+- Run the following command to stop the container
+
+  ```
+  docker container stop <CONTAINER ID>
+  ```
+  
+- (Optional) Removing container
+
+  ```
+  docker container rm <CONTAINER ID> --force
+  ```
