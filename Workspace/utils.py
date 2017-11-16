@@ -70,7 +70,7 @@ class DataLoader(object):
     def toJSON(self, Key, fraction='sqrt'):
         size = int(self.bucket.Object(Key).content_length)
         frac = 1
-        if isinstance(fraction, float) amd fraction < 1 and fraction > 0:
+        if isinstance(fraction, float) and fraction < 1 and fraction > 0:
             frac = fraction
         elif fraction == 'sqrt':
             size_in_m = size >> 20

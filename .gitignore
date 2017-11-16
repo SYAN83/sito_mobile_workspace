@@ -6,3 +6,7 @@ sito_nb/
 *.pyc
 *.parquet
 *.json
+*.csv
+Workspace/bid_requests/
+Workspace/clicks/
+Workspace/impressions/
