@@ -67,14 +67,19 @@ class DataLoader(object):
             self.downloadFile(Key)
         return self.spark.read.parquet(fileName)
     
-    def toJSON(self, Key, fraction='auto'):
+    def toJSON(self, Key, fraction='sqrt'):
         size = int(self.bucket.Object(Key).content_length)
         frac = 1
-        if fraction == 'auto':
+        if isinstance(fraction, float) amd fraction < 1 and fraction > 0:
+            frac = fraction
+        elif fraction == 'sqrt':
             size_in_m = size >> 20
             frac = round(math.sqrt(size_in_m)/size_in_m, 4)
+        elif fraction == 'none':
+            frac = 1
         else:
-            frac = fraction
+            print('fraction can only be postive numbers, "sqrt" or "none", "none" will be used instead.')
+            frac = 1
         print('data size: {}'.format(DataLoader.human_readable(size)))
         print('when converting to JSON file, {}% will be used.'.format(frac*100))
         jsonPath = os.path.splitext(os.path.splitext(Key.replace(self.prefix, './'))[0])[0]
@@ -86,7 +91,7 @@ class DataLoader(object):
                 spark_df = spark_df.sample(withReplacement=False, fraction=frac)
             spark_df.write.json(jsonPath)
         
-    def pandasRead(self, Key, n_row=1000000, fraction='auto'):
+    def pandasRead(self, Key, n_row=1000000, fraction='sqrt'):
         tmp = list()
         pd_df = None
         jsonPath = os.path.splitext(os.path.splitext(Key.replace(self.prefix, './'))[0])[0]
